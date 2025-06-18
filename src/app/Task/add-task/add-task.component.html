@@ -1,1 +1,28 @@
-<p>add-task works!</p>
+<div class="container">
+    <h4>
+        Add Task
+    </h4>
+
+    <div class="container py-4">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-100">
+            <div class="mb-3">
+                <input type="text" class="form-control" placeholder="Enter your name" formControlName="name" />
+                <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="text-danger small">
+                    Name is required.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <input type="email" class="form-control" placeholder="Enter your email" formControlName="email" />
+                <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="text-danger small">
+                    Enter a valid email.
+                </div>
+            </div>
+
+            <button class="btn btn-primary w-100" [disabled]="form.invalid">
+                Submit
+            </button>
+        </form>
+    </div>
+
+</div>
