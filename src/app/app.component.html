@@ -21,11 +21,9 @@
 </nav>
 
 <div class="container mt-4">
-    <button type="button" class="btn btn-outline-primary me-5">Project</button>
-    <button type="button" class="btn btn-outline-success me-5">Task</button>
-    <button type="button" class="btn btn-outline-warning me-5">User</button>
+    <a routerLink="/project" class="btn btn-outline-primary me-3">Project</a>
+    <a routerLink="/task" class="btn btn-outline-success me-3">Task</a>
+    <a routerLink="/user" class="btn btn-outline-warning me-3">User</a>
 </div>
 
-<app-user></app-user>
-<app-project></app-project>
-<app-task></app-task>
+<router-outlet></router-outlet>>

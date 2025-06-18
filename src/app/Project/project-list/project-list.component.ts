@@ -10,8 +10,14 @@ import { Component } from '@angular/core';
 export class ProjectListComponent {
 
   users = [
-    { name: 'Ajay Chavan', email: 'ajay@example.com' },
-    { name: 'John Doe', email: 'john@example.com' }
+    { id: 1, name: 'Ajay Chavan' },
+    { id: 2, name: 'Pooja Shah' },
+    { id: 3, name: 'Rahul Mehta' }
+  ];
+
+  projects = [
+    { name: 'CRM System', description: 'Manage customers', user: { id: 1, name: 'Ajay Chavan' } },
+    { name: 'ERP Tool', description: 'Handle inventory', user: { id: 2, name: 'Rahul Mehta' } }
   ];
 
   onEdit(user: any) {

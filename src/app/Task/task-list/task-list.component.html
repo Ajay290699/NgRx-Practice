@@ -8,33 +8,41 @@
                 <thead class="table-primary">
                     <tr>
                         <th scope="col">Sr No</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Email</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Project</th>
+                        <th scope="col">Due Date</th>
+                        <th scope="col">Priority</th>
+                        <th scope="col">Status</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @for (user of users; track user.email; let i = $index) {
+                    @for (task of tasks; track task.title; let i = $index) {
                     <tr>
-                        <td>{{i + 1}}</td>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.email }}</td>
+                        <td>{{ i + 1 }}</td>
+                        <td>{{ task.title }}</td>
+                        <td>{{ task.description }}</td>
+                        <td>{{ task.project }}</td>
+                        <td>{{ task.dueDate }}</td>
+                        <td>{{ task.priority }}</td>
+                        <td>{{ task.status }}</td>
                         <td>
-                            <button class="btn btn-sm btn-primary me-2" (click)="onEdit(user)" title="Update User">
+                            <button class="btn btn-sm btn-primary me-2" (click)="onEdit(task)" title="Update Task">
                                 <i class="bi bi-pencil-fill"></i>
                             </button>
-
-                            <button class="btn btn-sm btn-danger" (click)="onDelete(user)" title="Delete User">
+                            <button class="btn btn-sm btn-danger" (click)="onDelete(task)" title="Delete Task">
                                 <i class="bi bi-trash-fill"></i>
                             </button>
                         </td>
                     </tr>
-                    }@empty {
+                    } @empty {
                     <tr>
-                        <td colspan="3">No users found.</td>
+                        <td colspan="8">No tasks found.</td>
                     </tr>
                     }
                 </tbody>
+
             </table>
         </div>
     </div>

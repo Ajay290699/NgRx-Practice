@@ -9,10 +9,25 @@ import { Component } from '@angular/core';
 })
 export class TaskListComponent {
 
-  users = [
-    { name: 'Ajay Chavan', email: 'ajay@example.com' },
-    { name: 'John Doe', email: 'john@example.com' }
+  tasks = [
+    {
+      title: 'Fix Login Bug',
+      description: 'Resolve issue with user login',
+      project: 'CRM System',
+      dueDate: '2025-06-30',
+      priority: 'High',
+      status: 'Pending'
+    },
+    {
+      title: 'Design Dashboard UI',
+      description: 'Create a responsive dashboard layout',
+      project: 'ERP Tool',
+      dueDate: '2025-07-05',
+      priority: 'Medium',
+      status: 'In Progress'
+    }
   ];
+
 
   onEdit(user: any) {
     console.log('Edit user:', user);

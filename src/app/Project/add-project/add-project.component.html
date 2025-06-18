@@ -6,21 +6,33 @@
     <div class="container py-4">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-100">
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Enter your name" formControlName="name" />
+                <input type="text" class="form-control" placeholder="Enter Project Name" formControlName="name" />
                 <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="text-danger small">
                     Name is required.
                 </div>
             </div>
 
             <div class="mb-3">
-                <input type="email" class="form-control" placeholder="Enter your email" formControlName="email" />
-                <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="text-danger small">
-                    Enter a valid email.
+                <textarea type="textarea" class="form-control" placeholder="Enter Project Description"
+                    formControlName="description"></textarea>
+                <div *ngIf="form.get('description')?.touched && form.get('description')?.invalid"
+                    class="text-danger small">
+                    Description is required.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <select class="form-select" formControlName="user">
+                    <option value="" disabled selected>Select User</option>
+                    <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+                </select>
+                <div *ngIf="form.get('user')?.touched && form.get('user')?.invalid" class="text-danger small">
+                    Please select a user.
                 </div>
             </div>
 
             <button class="btn btn-primary w-100" [disabled]="form.invalid">
-                Submit
+                Add Project
             </button>
         </form>
     </div>

@@ -1,28 +1,80 @@
 <div class="container">
-    <h4>
-        Add Task
-    </h4>
+    <h4>Add Task</h4>
 
     <div class="container py-4">
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="w-100">
+
             <div class="mb-3">
-                <input type="text" class="form-control" placeholder="Enter your name" formControlName="name" />
-                <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="text-danger small">
-                    Name is required.
+                <input type="text" class="form-control" placeholder="Enter Title" formControlName="title" />
+                <div *ngIf="form.get('title')?.touched && form.get('title')?.invalid" class="text-danger small">
+                    Title is required.
                 </div>
             </div>
 
             <div class="mb-3">
-                <input type="email" class="form-control" placeholder="Enter your email" formControlName="email" />
-                <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="text-danger small">
-                    Enter a valid email.
+                <textarea type="textarea" class="form-control" placeholder="Enter Description"
+                    formControlName="description"></textarea>
+                <div *ngIf="form.get('description')?.touched && form.get('description')?.invalid"
+                    class="text-danger small">
+                    Description is required.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <select class="form-select" formControlName="project">
+                    <option value="" disabled>Select Project</option>
+                    <option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</option>
+                </select>
+                <div *ngIf="form.get('project')?.touched && form.get('project')?.invalid" class="text-danger small">
+                    Please select a project.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <select class="form-select" formControlName="user">
+                    <option value="" disabled>Select User</option>
+                    <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
+                </select>
+                <div *ngIf="form.get('user')?.touched && form.get('user')?.invalid" class="text-danger small">
+                    Please select a user.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <select class="form-select" formControlName="priority">
+                    <option value="" disabled>Select Priority</option>
+                    <option value="High">High</option>
+                    <option value="Medium">Medium</option>
+                    <option value="Low">Low</option>
+                </select>
+                <div *ngIf="form.get('priority')?.touched && form.get('priority')?.invalid" class="text-danger small">
+                    Please select a priority.
+                </div>
+            </div>
+
+            <div *ngIf="isEditMode" class="mb-3">
+                <select class="form-select" formControlName="status">
+                    <option value="" disabled>Select Status</option>
+                    <option value="To Do">To Do</option>
+                    <option value="In Progress">In Progress</option>
+                    <option value="Completed">Completed</option>
+                </select>
+                <div *ngIf="form.get('status')?.touched && form.get('status')?.invalid" class="text-danger small">
+                    Please select a status.
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <input type="date" class="form-control" formControlName="date" />
+                <div *ngIf="form.get('date')?.touched && form.get('date')?.invalid" class="text-danger small">
+                    Please select a date.
                 </div>
             </div>
 
             <button class="btn btn-primary w-100" [disabled]="form.invalid">
-                Submit
+                Add Task
             </button>
+
         </form>
     </div>
-
 </div>
