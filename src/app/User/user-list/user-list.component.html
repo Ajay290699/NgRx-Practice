@@ -14,7 +14,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @for (user of users; track user.email; let i = $index) {
+                    @for (user of users$ | async; track user.email; let i = $index) {
                     <tr>
                         <td>{{i + 1}}</td>
                         <td>{{ user.name }}</td>

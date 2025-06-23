@@ -1,31 +1,33 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Project } from '../../../models/project.model';
+import { Store } from '@ngrx/store';
+import { selectAllProjects } from '../../store/selectors/project.selector';
+import { removeProject } from '../../store/actions/project.action';
+import { ProjectService } from '../project.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-project-list',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './project-list.component.html',
   styleUrl: './project-list.component.css'
 })
 export class ProjectListComponent {
 
-  users = [
-    { id: 1, name: 'Ajay Chavan' },
-    { id: 2, name: 'Pooja Shah' },
-    { id: 3, name: 'Rahul Mehta' }
-  ];
+  projects$: Observable<Project[]>;
 
-  projects = [
-    { name: 'CRM System', description: 'Manage customers', user: { id: 1, name: 'Ajay Chavan' } },
-    { name: 'ERP Tool', description: 'Handle inventory', user: { id: 2, name: 'Rahul Mehta' } }
-  ];
-
-  onEdit(user: any) {
-    console.log('Edit user:', user);
+  constructor(private store: Store, private projectService: ProjectService) {
+    this.projects$ = this.store.select(selectAllProjects);
   }
 
-  onDelete(user: any) {
-    console.log('Delete user:', user);
+  onEdit(project: Project) {
+    this.projectService.setCurrentProject(project);
+  }
+
+  onDelete(project: Project) {
+    this.store.dispatch(removeProject({ payload: project }));
   }
 
 }

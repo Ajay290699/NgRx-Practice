@@ -20,16 +20,33 @@
                     Description is required.
                 </div>
             </div>
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Select Users</label>
 
-            <div class="mb-3">
-                <select class="form-select" formControlName="user">
-                    <option value="" disabled selected>Select User</option>
-                    <option *ngFor="let user of users" [value]="user.id">{{ user.name }}</option>
-                </select>
-                <div *ngIf="form.get('user')?.touched && form.get('user')?.invalid" class="text-danger small">
-                    Please select a user.
+                <ng-select formControlName="user" [items]="users$ | async" bindLabel="name" bindValue="id"
+                    [multiple]="true" [virtualScroll]="true" [closeOnSelect]="false" [clearSearchOnAdd]="true"
+                    placeholder="" dropdownPosition="auto" class="ng-select w-100">
+
+                    <!-- Chips-style selected values -->
+                    <ng-template ng-label-tmp let-item="item" let-clear="clear">
+                        <span class="ng-value-label">{{ item.name | titlecase }}</span>
+                        <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
+                    </ng-template>
+
+                    <!-- Option Template -->
+                    <ng-template ng-option-tmp let-item="item">
+                        {{ item.name | titlecase }}
+                    </ng-template>
+                </ng-select>
+
+                <div *ngIf="form.get('user')?.touched && form.get('user')?.invalid" class="text-danger small mt-1">
+                    Please select at least one user.
                 </div>
             </div>
+
+
+
+
 
             <button class="btn btn-primary w-100" [disabled]="form.invalid">
                 Add Project

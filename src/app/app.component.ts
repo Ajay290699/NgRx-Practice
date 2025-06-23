@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { BucketComponent } from './components/bucket/bucket.component';
 import { GroceryComponent } from './components/grocery/grocery.component';
+import { Store } from '@ngrx/store';
+import { loadUsers } from './store/actions/user.action';
 
 @Component({
   selector: 'app-root',
@@ -11,5 +13,11 @@ import { GroceryComponent } from './components/grocery/grocery.component';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+
+  constructor(private store: Store) { }
+
+  ngOnInit() {
+    this.store.dispatch(loadUsers());
+  }
 
 }

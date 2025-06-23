@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-header">
-        <h5 class="mb-0">User List</h5>
+        <h5 class="mb-0">Project List</h5>
     </div>
     <div class="card-body p-0">
         <div class="table-responsive">
@@ -8,38 +8,40 @@
                 <thead class="table-primary">
                     <tr>
                         <th scope="col">Sr No</th>
-                        <th scope="col">Name</th>
+                        <th scope="col">Project Name</th>
                         <th scope="col">Description</th>
                         <th scope="col">Users</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @for (user of projects; track user.name; let i = $index) {
-                    <tr>
-                        <td>{{ i + 1 }}</td>
-                        <td>{{ user.name }}</td>
-                        <td>{{ user.description }}</td>
-                        <td>
-                            {{ user.user.name }}
-                        </td>
-                        <td>
-                            <button class="btn btn-sm btn-primary me-2" (click)="onEdit(user)" title="Update User">
-                                <i class="bi bi-pencil-fill"></i>
-                            </button>
-                            <button class="btn btn-sm btn-danger" (click)="onDelete(user)" title="Delete User">
-                                <i class="bi bi-trash-fill"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    } @empty {
-                    <tr>
-                        <td colspan="5">No users found.</td>
-                    </tr>
-                    }
+                    <ng-container *ngIf="projects$ | async as projects; else noData">
+                        <tr *ngFor="let project of projects; let i = index;">
+                            <td>{{ i + 1 }}</td>
+                            <td>{{ project.name }}</td>
+                            <td>{{ project.description }}</td>
+                            <td>
+                                <ng-container *ngFor="let user of project.users; let isLast = last">
+                                    {{ user.name }}<span *ngIf="!isLast">, </span>
+                                </ng-container>
+                            </td>
+                            <td>
+                                <button class="btn btn-sm btn-primary me-2" (click)="onEdit(project)"
+                                    title="Update Project">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </button>
+                                <button class="btn btn-sm btn-danger" (click)="onDelete(project)"
+                                    title="Delete Project">
+                                    <i class="bi bi-trash-fill"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </ng-container>
                 </tbody>
-
             </table>
+            <ng-template #noData>
+                <div class="text-center p-3">No projects found.</div>
+            </ng-template>
         </div>
     </div>
 </div>
