@@ -20,7 +20,7 @@
                 </div>
             </div>
 
-            <div class="mb-3">
+            <!-- <div class="mb-3">
                 <select class="form-select" formControlName="project">
                     <option value="" disabled>Select Project</option>
                     <option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</option>
@@ -38,7 +38,31 @@
                 <div *ngIf="form.get('user')?.touched && form.get('user')?.invalid" class="text-danger small">
                     Please select a user.
                 </div>
+            </div> -->
+            <div class="mb-3">
+                <select class="form-select" formControlName="project">
+                    <option value="" disabled selected>Select Project</option>
+                    <option *ngFor="let project of projects$ | async" [value]="project.id">
+                        {{ project.name }}
+                    </option>
+                </select>
+                <div *ngIf="form.get('project')?.touched && form.get('project')?.invalid" class="text-danger small">
+                    Please select a project.
+                </div>
             </div>
+
+            <div class="mb-3">
+                <select class="form-select" formControlName="user">
+                    <option value="" disabled selected>Select User</option>
+                    <option *ngFor="let user of users$ | async" [value]="user.id">
+                        {{ user.name }}
+                    </option>
+                </select>
+                <div *ngIf="form.get('user')?.touched && form.get('user')?.invalid" class="text-danger small">
+                    Please select a user.
+                </div>
+            </div>
+
 
             <div class="mb-3">
                 <select class="form-select" formControlName="priority">

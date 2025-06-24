@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as UserActions from '../actions/user.action';
-import { catchError, map, mergeMap, of } from 'rxjs';
+import { catchError, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
 import { UserService } from '../../User/user.service';
 import { User } from '../../../models/user.model';
 
@@ -12,7 +12,7 @@ export class UserEffects {
     loadUsers$ = createEffect(() =>
         this.actions$.pipe(
             ofType(UserActions.loadUsers),
-            mergeMap(() =>
+            exhaustMap(() =>
                 this.userService.getUsers().pipe(
                     map(users => UserActions.loadUsersSuccess({ users })), // store users
                     catchError(() => of({ type: '[User API] Load Users Failure' }))
@@ -38,7 +38,7 @@ export class UserEffects {
     updateUser$ = createEffect(() =>
         this.actions$.pipe(
             ofType(UserActions.updateUser),
-            mergeMap(({ payload }) =>
+            switchMap(({ payload }) =>
                 this.userService.updateUser(payload).pipe(
                     map((user: User) => ({ type: '[User API] Update User Success', payload: user })),
                     catchError(() => of({ type: '[User API] Update User Failure' }))

@@ -3,10 +3,3 @@ export interface User {
     name: string;
     email: string;
 }
-
-export interface Project {
-    id: number;
-    name: string;
-    description: string;
-    users: User[];
-}
