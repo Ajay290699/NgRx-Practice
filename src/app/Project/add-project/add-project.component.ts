@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { firstValueFrom, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { User } from '../../../models/user.model';
 import { Project } from '../../../models/project.model';
 import { selectAllUsers } from '../../store/selectors/user.selector';
@@ -51,34 +51,35 @@ export class AddProjectComponent {
     });
   }
 
-  async onSubmit() {
+  onSubmit() {
     if (this.form.valid) {
       const { name, description, user } = this.form.value;
 
-      const users = await firstValueFrom(this.users$);
-      const selectedUser: User[] = users.filter(u => user.includes(u.id));
+      this.users$.subscribe(users => {
+        const selectedUser: User[] = users.filter(u => user.includes(u.id));
 
-      if (!selectedUser) {
-        console.error('Selected user not found in store');
-        return;
-      }
+        if (!selectedUser.length) {
+          console.error('Selected user not found in store');
+          return;
+        }
 
-      const project: Project = {
-        id: this.editingProjectId ?? this.generateUniqueId(),
-        name,
-        description,
-        users: selectedUser
-      };
+        const project: Project = {
+          id: this.editingProjectId ?? this.generateUniqueId(),
+          name,
+          description,
+          users: selectedUser
+        };
 
-      if (this.editingProjectId !== null) {
-        this.store.dispatch(updateProject({ payload: project }));
-      } else {
-        this.store.dispatch(addProject({ payload: project }));
-      }
+        if (this.editingProjectId !== null) {
+          this.store.dispatch(updateProject({ payload: project }));
+        } else {
+          this.store.dispatch(addProject({ payload: project }));
+        }
 
-      this.form.reset();
-      this.editingProjectId = null;
-      this.projectService.setCurrentProject(null);
+        this.form.reset();
+        this.editingProjectId = null;
+        this.projectService.setCurrentProject(null);
+      });
     }
   }
 

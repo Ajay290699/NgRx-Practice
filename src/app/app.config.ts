@@ -10,6 +10,7 @@ import { bucketReducer } from './store/reducer/bucket.reducer';
 import { userReducer } from './store/reducer/user.reducer';
 import { UserEffects } from './store/effects/user.effect';
 import { ProjectReducer } from './store/reducer/project.reducer';
+import { ProjectEffect } from './store/effects/project.effect';
 
 
 export const appConfig: ApplicationConfig = {
@@ -25,7 +26,8 @@ export const appConfig: ApplicationConfig = {
     }),
     provideEffects(
       [
-        UserEffects
+        UserEffects,
+        ProjectEffect
       ]
     ),
     provideStoreDevtools({

@@ -4,6 +4,7 @@ import { BucketComponent } from './components/bucket/bucket.component';
 import { GroceryComponent } from './components/grocery/grocery.component';
 import { Store } from '@ngrx/store';
 import { loadUsers } from './store/actions/user.action';
+import { loadProjects } from './store/actions/project.action';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ export class AppComponent {
 
   ngOnInit() {
     this.store.dispatch(loadUsers());
+    this.store.dispatch(loadProjects());
   }
 
 }

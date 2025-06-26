@@ -43,25 +43,14 @@ export class UserAddComponent implements OnInit {
   }
 
   onSubmit() {
-    // if (this.form.valid) {
-    //   const id = this.generateUniqueId(this.store);
-
-    //   const newUser: User = {
-    //     id,
-    //     ...this.form.value
-    //   };
-
-    //   this.store.dispatch(addUser({ payload: newUser }));
-    //   this.form.reset();
-    // }
     if (this.form.valid) {
       const formValue = this.form.value;
       if (this.editingUserId !== null) {
-        // update existing user
+        // update existing user,
         this.store.dispatch(updateUser({ payload: { id: this.editingUserId, ...formValue } }));
       } else {
         // add new user
-        const id = this.generateUniqueId(); // or your ID generator
+        const id = this.generateUniqueId().toString(); // or your ID generator
         this.store.dispatch(addUser({ payload: { id, ...formValue } }));
       }
       this.form.reset();

@@ -4,6 +4,7 @@ import * as UserActions from '../actions/user.action';
 import { catchError, exhaustMap, map, mergeMap, of, switchMap } from 'rxjs';
 import { UserService } from '../../User/user.service';
 import { User } from '../../../models/user.model';
+import { updateUserSuccess } from '../actions/user.action';
 
 @Injectable()
 export class UserEffects {

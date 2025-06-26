@@ -1,10 +1,12 @@
 import { Actions, createEffect, ofType } from "@ngrx/effects";
-import { ProjectService } from "../../Project/project.service";
 import { catchError, exhaustMap, map, mergeMap, of, switchMap } from "rxjs";
 import { Project } from "../../../models/project.model";
 import * as ProjectActions from '../actions/project.action';
+import { ProjectService } from "../../Project/project.service";
+import { Injectable } from "@angular/core";
 
 
+@Injectable()
 export class ProjectEffect {
 
     constructor(private actions$: Actions, private projectService: ProjectService) { }

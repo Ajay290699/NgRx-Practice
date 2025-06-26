@@ -11,6 +11,11 @@ export const updateUser = createAction(
     props<{ payload: User }>()
 );
 
+export const updateUserSuccess = createAction(
+    '[User] User Update Success',
+    props<{ user: User }>()
+);
+
 export const removeUser = createAction(
     '[User] Remove',
     props<{ payload: Partial<User> }>()
